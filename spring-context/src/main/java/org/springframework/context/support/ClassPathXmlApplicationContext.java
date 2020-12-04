@@ -139,6 +139,18 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			throws BeansException {
 
 		super(parent);
+		/*
+		<beans profile="develop">
+			<context:property-placeholder location="classpath*:jdbc-develop.properties"/>
+		</beans>
+		<beans profile="production">
+			<context:property-placeholder location="classpath*:jdbc-production.properties"/>
+		</beans>
+		<beans profile="test">
+			<context:property-placeholder location="classpath*:jdbc-test.properties"/>
+		</beans>
+		*/
+		// 设置配置文件路径，并根据profile配置解析placeholder
 		setConfigLocations(configLocations);
 		if (refresh) {
 			refresh();
@@ -199,6 +211,9 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 		for (int i = 0; i < paths.length; i++) {
 			this.configResources[i] = new ClassPathResource(paths[i], clazz);
 		}
+		/* @author TODO
+		 * ioc初始化开始入口，核心方法
+		 */
 		refresh();
 	}
 
